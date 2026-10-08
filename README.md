@@ -1,128 +1,91 @@
-# Online Commercial Marketplace
+# marketplace-app
 
-Online Commercial Marketplace is an e-commerce platform built with React for the frontend and Node.js with Express for the backend. It provides a user-friendly interface for buying and selling products, managing listings, handling customer inquiries through a ticket system, and assigning sponsorship roles to selected users.
+An e-commerce marketplace with a React frontend and a Node.js and Express backend. Users can post product listings, browse and search the catalog, manage a cart, and raise support tickets. Authentication uses JWT, and data is stored in PostgreSQL.
 
-## Table of Contents
+## Tech
 
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+**Backend**
+- Express, PostgreSQL via `pg`
+- `jsonwebtoken` for auth, `bcrypt` for password hashing
+- `helmet`, `cors`, `express-rate-limit`, and `express-validator`
+- `multer` for image uploads
 
-## Features
+**Frontend**
+- React 18 with Create React App (`react-scripts`)
+- `react-router-dom`, `axios`, `framer-motion`, `swiper`
 
-- **Product Listings:** Users can post products with images either by providing links from the internet or by uploading images directly.
-- **User Roles:** Multiple roles such as sellers and sponsors with specific permissions.
-- **Ticket System:** Efficient handling of customer inquiries and support requests through a ticketing system.
-- **Sponsorship:** Ability to assign sponsorship roles to selected users for promoting products or brands.
-- **User Authentication:** Secure login and registration with role-based access control.
-- **Profile Management:** Users can manage their profiles, listings, and product details.
-- **Search and Filter:** Users can search for products and filter results based on various criteria.
-- **Order Management:** Sellers can manage orders, process payments, and track shipping.
-- **Feedback and Ratings:** Users can leave feedback and ratings for products and sellers.
+## Setup
 
-## Installation
+You need Node.js and a running PostgreSQL database.
 
-### Prerequisites
+Clone and install both sides:
 
-- Node.js
-- PostgreSQL or MySQL
-- Git
+```sh
+git clone https://github.com/germanProgq/marketplace-app
+cd marketplace-app
 
-### Setup
+cd backend && npm install
+cd ../frontend && npm install
+```
 
-1. Clone the repository:
+### Backend environment
 
-    ```sh
-    git clone https://github.com/germanProgq/Marketplace_App
-    cd Marketplace-App
-    ```
+Create a `.env` file in `backend` with your database and token settings:
 
-2. Install dependencies:
+```
+DB_HOST=localhost
+DB_PORT=4000
+DB_DATABASE_PORT=5432
+DB_NAME=your_db_name
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+JWT_SECRET_KEY=replace_me
+JWT_REFRESH_SECRET_KEY=replace_me
+```
 
-    ```sh
-    # Install backend dependencies
-    cd backend
-    npm install
+`DB_PORT` is the port the API server listens on (it defaults to 4000). The frontend proxies API calls to `http://localhost:4000`.
 
-    # Install frontend dependencies
-    cd ../frontend
-    npm install
-    ```
+### Run
 
-3. Configure environment variables:
+```sh
+# backend
+cd backend && npm start
 
-    - Backend: Create a `.env` file in the `backend` directory with the following variables:
+# frontend (in another terminal)
+cd frontend && npm start
+```
 
-        ```
-        DATABASE_URL=your_database_url
-        SECRET_KEY=your_secret_key
-        ```
+The frontend runs on `http://localhost:3000`.
 
-    - Frontend: Create a `.env` file in the `frontend` directory with the following variables:
+## Scripts
 
-        ```
-        REACT_APP_API_URL=http://localhost:5000
-        ```
+Backend:
 
-4. Initialize the database:
+| Command | What it does |
+| --- | --- |
+| `npm start` | Run the API server with nodemon |
 
-    - Set up your PostgreSQL or MySQL database and update the `DATABASE_URL` in the `.env` file accordingly.
+Frontend:
 
-5. Start the backend server:
+| Command | What it does |
+| --- | --- |
+| `npm start` | Start the dev server |
+| `npm run build` | Build for production |
+| `npm test` | Run tests |
 
-    ```sh
-    # From the backend directory
-    npm start
-    ```
+## Layout
 
-6. Start the frontend development server:
-
-    ```sh
-    # From the frontend directory
-    npm start
-    ```
-
-## Usage
-
-1. Open your web browser and navigate to `http://localhost:3000` to access the frontend.
-
-2. Register for an account or log in if you already have one.
-
-3. Explore products, search for items, and interact with sellers.
-
-4. Sellers can post products, manage listings, and handle orders.
-
-5. Customers can browse products, add items to their cart, and complete purchases.
-
-6. Use the ticket system for customer support and inquiries.
-
-## Contributing
-
-We welcome contributions from the community. To contribute:
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/YourFeature`
-3. Make your changes and commit them: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature/YourFeature`
-5. Open a pull request.
-
-Please ensure your code adheres to our coding standards and includes appropriate tests.
-
+```
+backend/
+  server.js       app entry and setup
+  router.js       route wiring
+  routes/         cart, catalog, user handlers
+  assets/         uploaded and static assets
+frontend/
+  src/            React app
+  public/         static files
+```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-You can also include the license text in a file named `LICENSE` in your project directory.
-## Contact
-
-For support or inquiries, please contact girshvinok@gmail.com
-
----
-
-Feel free to customize the content as needed to match the specifics of your project!
+MIT. See [LICENSE](LICENSE).
